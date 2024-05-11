@@ -11,19 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('salas', function (Blueprint $table) {
             $table->id()->primary();
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
-            $table->unsignedBigInteger('articulo_id');
-            $table->foreign('articulo_id')->references('id')->on('articulos');
-            $table->string('medio_pago');
-            $table->string('autorizacion');
-            $table->integer('cantidad');
-            $table->float('precio');
-            $table->float('iva');
-            $table->float('total');
-            $table->string('estado');
+            $table->string('nombre_sala')->nullable();
+            $table->boolean('streaming_sala');
             $table->timestamps();
         });
     }
@@ -33,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('salas');
     }
 };

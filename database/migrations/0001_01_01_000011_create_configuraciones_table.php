@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('configuraciones', function (Blueprint $table) {
             $table->id()->primary();
-            $table->string('nombre');
-            $table->integer('nit');
-            $table->string('direccion');
-            $table->string('telefono');
-            $table->string('email')->unique();
-            $table->boolean('estado');
+            $table->unsignedBigInteger('cliente_id');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->string('logo_config')->nullable();
+            $table->string('lenguaje_config')->nullable();
+            $table->string('color_config')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('configuraciones');
     }
 };

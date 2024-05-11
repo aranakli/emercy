@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id()->primary();
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('imagen');
-            $table->integer('precio');
-            $table->integer('stock');
-            $table->boolean('estado');
+            $table->string('nombre_articulo');
+            $table->string('descripcion_articulo');
+            $table->string('imagen_articulo');
+            $table->integer('precio_articulo');
+            $table->integer('stock_articulo');
+            $table->boolean('estado_articulo');
             $table->timestamps();
         });
     }

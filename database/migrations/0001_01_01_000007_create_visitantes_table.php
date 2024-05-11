@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('familiares', function (Blueprint $table) {
+        Schema::create('visitantes', function (Blueprint $table) {
             $table->id()->primary();
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->unsignedBigInteger('obituario_id');
             $table->foreign('obituario_id')->references('id')->on('obituarios');
-            $table->string('nombre');
-            $table->mediumInteger('telefono');
-            $table->string('parentesco');
-            $table->string('email');
-            $table->boolean('autoriza');
-            $table->boolean('estado');
+            $table->string('nombre_visitante');
+            $table->string('email_visitante');
+            $table->string('telefono_visitante');
+            $table->boolean('tel_confirma_visitante');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('familiares');
+        Schema::dropIfExists('visitantes');
     }
 };
