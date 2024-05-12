@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VisitanteController;
+use App\Http\Controllers\FamiliarController;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ObituarioController;
 use App\Http\Controllers\PQRSController;
 use App\Http\Controllers\SalaController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +37,41 @@ Route::middleware('auth')->group(function () {
     Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
     Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
     Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+    // Rutas de visitantes
+    Route::get('/visitantes', [VisitanteController::class, 'index'])->name('visitantes.index');
+    Route::post('/visitantes', [VisitanteController::class, 'store'])->name('visitantes.store');
+    Route::get('/visitantes/create', [VisitanteController::class, 'create'])->name('visitantes.create');
+    Route::delete('/visitantes/{visitante}', [VisitanteController::class, 'destroy'])->name('visitantes.destroy');
+    Route::put('/visitantes/{visitante}', [VisitanteController::class, 'update'])->name('visitantes.update');
+    Route::get('/visitantes/{visitante}/edit', [VisitanteController::class, 'edit'])->name('visitantes.edit');
+    // Rutas de familiares
+    Route::get('/familiares', [FamiliarController::class, 'index'])->name('familiares.index');
+    Route::post('/familiares', [FamiliarController::class, 'store'])->name('familiares.store');
+    Route::get('/familiares/create', [FamiliarController::class, 'create'])->name('familiares.create');
+    Route::delete('/familiares/{familiar}', [FamiliarController::class, 'destroy'])->name('familiares.destroy');
+    Route::put('/familiares/{familiar}', [FamiliarController::class, 'update'])->name('familiares.update');
+    Route::get('/familiares/{familiar}/edit', [FamiliarController::class, 'edit'])->name('familiares.edit');
+    // Rutas de productos
+    Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
+    Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
+    Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+    Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.update');
+    Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
+    // Rutas de ventas
+    Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index');
+    Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+    Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create');
+    Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy');
+    Route::put('/ventas/{venta}', [VentaController::class, 'update'])->name('ventas.update');
+    Route::get('/ventas/{venta}/edit', [VentaController::class, 'edit'])->name('ventas.edit');
+    // Rutas de obituarios
+    Route::get('/obituarios', [ObituarioController::class, 'index'])->name('obituarios.index');
+    Route::post('/obituarios', [ObituarioController::class, 'store'])->name('obituarios.store');
+    Route::get('/obituarios/create', [ObituarioController::class, 'create'])->name('obituarios.create');
+    Route::delete('/obituarios/{obituario}', [ObituarioController::class, 'destroy'])->name('obituarios.destroy');
+    Route::put('/obituarios/{obituario}', [ObituarioController::class, 'update'])->name('obituarios.update');
+    Route::get('/obituarios/{obituario}/edit', [ObituarioController::class, 'edit'])->name('obituarios.edit');
     // Rutas de pqrss
     Route::get('/PQRSs', [PQRSController::class, 'index'])->name('PQRSs.index');
     Route::post('/PQRSs', [PQRSController::class, 'store'])->name('PQRSs.store');
