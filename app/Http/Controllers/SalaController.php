@@ -44,10 +44,15 @@ class SalaController extends Controller
         } else {
             $sala->streaming_sala = 0;
         }
+        if ($request->estado == 'on') {
+            $sala->estado_sala = 1;
+        } else {
+            $sala->estado_sala = 0;
+        }
         $sala->save();
         $salas = DB::table('salas')
             ->join('clientes', 'salas.cliente_id', '=', 'clientes.id')
-            ->select('salas.*', 'salas.cliente_id')
+            ->select('salas.*', 'clientes.nombre_cliente')
             ->get();
         return view('sala.index', ['salas' => $salas]);
     }
@@ -78,8 +83,18 @@ class SalaController extends Controller
     public function update(Request $request, string $id)
     {
         $sala = Sala::find($id);
-        $sala->comu_nomb = $request->name;
-        $sala->muni_codi = $request->code;
+        $sala->cliente_id = $request->cliente_id;
+        $sala->nombre_sala = $request->nombre;
+        if ($request->streaming == 'on') {
+            $sala->streaming_sala = 1;
+        } else {
+            $sala->streaming_sala = 0;
+        }
+        if ($request->estado == 'on') {
+            $sala->estado_sala = 1;
+        } else {
+            $sala->estado_sala = 0;
+        }
         $sala->save();
 
         $salas = DB::table('salas')

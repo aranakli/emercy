@@ -88,9 +88,10 @@
                             Editar cliente
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('clientes.update', ['cliente' => $cliente->id]) }}">
+                            <form method="POST" action="{{ route('obituarios.update', ['obituario' => $obituario->id]) }}">
                                 @method('put')
                                 @csrf
+                                
                                 <div class="mb-3">
                                     <label for="codigo" class="form-label">Id</label>
                                     <input type="hidden" class="form-control" id="id"

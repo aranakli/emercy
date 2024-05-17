@@ -77,10 +77,11 @@
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Cliente</th>
+                                <th scope="col">Funeraria</th>
                                 <th scope="col">Nombre difunto</th>
                                 <th scope="col">Apellido difunto</th>
-                                <th scope="col">Sala</th>
+                                <th scope="col">Fecha y Hora    Exequias</th>
+                                <th scope="col">Lugar Exequias</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -88,23 +89,15 @@
                             @foreach ($obituarios as $obituario)
                             <tr>
                                 <th scope="row">{{ $obituario->id }}</th>
+                                <td>{{ $obituario->nombre_cliente }}</td>
                                 <td>{{ $obituario->nombre_obituario }}</td>
-                                <td>{{ $obituario->nit_obituario }}</td>
-                                <td>{{ $obituario->direccion_obituario }}</td>
-                                <td>{{ $obituario->telefono_obituario }}</td>
-                                <td>{{ $obituario->email_obituario }}</td>
-                                <td>{{ $obituario->estado_obituario }}</td>
+                                <td>{{ $obituario->apellido_obituario }}</td>
+                                <td>{{ $obituario->fecha_exequias_obituario }}</td>
+                                <td>{{ $obituario->lugar_exequias_obituario }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('obituarios.edit', ['obituario' => $obituario->id]) }}"
                                             class="btn btn-primary">Editar</a>
-
-                                        <form action="{{ route('obituarios.destroy', ['obituario' => $obituario->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

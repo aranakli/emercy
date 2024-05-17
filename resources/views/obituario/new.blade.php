@@ -15,7 +15,7 @@
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Agregar nuevo cliente</title>
+    <title>Agregar nueva sala</title>
 
     <style>
         body {
@@ -76,7 +76,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Clientes') }}
+                {{ __('Obituarios') }}
             </h2>
         </x-slot>
         <div class="container">
@@ -85,55 +85,59 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-user-plus"></i>
-                            Agregar nuevo cliente
+                            Agregar nuevo obituario
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('clientes.store') }}">
+                            <form method="POST" action="{{ route('obituarios.store') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="id" class="form-label">Codigo</label>
+                                    <label for="id" class="form-label">Id Obituario</label>
                                     <input type="hidden" class="form-control" id="id" aria-describedby="idHelp"
                                         name="id" disabled="disabled">
-                                    <div id="idHelp" class="form-text">Código Id</div>
+                                    <div id="idHelp" class="form-text">Id Obituario</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" required class="form-control" id="nombre"
-                                        aria-describedby="nameHelp" name="nombre" placeholder="Nombre  del cliente">
+                                    <label for="cliente_id" class="form-label">Funeraria</label>
+                                    <select class="form-select" id="cliente_id" name="cliente_id" required>
+                                        <option selected disabled value="">Elegir uno...</option>
+                                        @foreach ($clientes as $cliente)
+                                            <option value="{{ $cliente->id }}">{{ $cliente->nombre_cliente }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nit" class="form-label">NIT</label>
-                                    <input type="number" required class="form-control" id="nit"
-                                        aria-describedby="nameHelp" name="nit"
-                                        placeholder="Numero de Identificacion Tributaria NIT cliente" min="1"
-                                        max="2147483647">
+                                    <label for="nombre" class="form-label">Nombre difunto</label>
+                                    <input type="text"  class="form-control" id="nombre"
+                                        aria-describedby="nameHelp" name="nombre" required placeholder="Nombre del difunto">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="direccion" class="form-label">Direccion</label>
-                                    <input type="text" required class="form-control" id="direccion"
-                                        aria-describedby="nameHelp" name="direccion"
-                                        placeholder="Direccion del cliente">
+                                    <label for="apellido" class="form-label">Apellido difunto</label>
+                                    <input type="text"  class="form-control" id="apellido"
+                                        aria-describedby="nameHelp" name="apellido" required placeholder="Apellido del difunto">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="telefono" class="form-label">Telefono</label>
-                                    <input type="number" required class="form-control" id="telefono"
-                                        aria-describedby="nameHelp" name="telefono" placeholder="Telefono cliente"
-                                        min="1" max="9947483647">
+                                    <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento del difunto</label>
+                                    <input type="date"  class="form-control" id="fecha_nacimiento"
+                                        aria-describedby="nameHelp" name="fecha_nacimiento" required placeholder="Fecha de nacimiento del difunto">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">eMail</label>
-                                    <input type="email" required class="form-control" id="email"
-                                        aria-describedby="nameHelp" name="email" placeholder="Email del cliente">
+                                    <label for="fecha_muerte" class="form-label">Fecha de fallecimiento</label>
+                                    <input type="date"  class="form-control" id="fecha_muerte"
+                                        aria-describedby="nameHelp" name="fecha_muerte" required placeholder="Fecha de fallecimiento">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="estado" class="form-label">Activo </label>
-                                    <input type="checkbox"  class="form-control" id="estado"
-                                        aria-describedby="nameHelp" name="estado">
+                                    <label for="fecha_exequias" class="form-label">Fecha y Hora de exequias</label>
+                                    <input type="datetime-local"  class="form-control" id="fecha_exequias"
+                                        aria-describedby="nameHelp" name="fecha_exequias" required placeholder="Fecha de exequias">
                                 </div>
-
+                                <div class="mb-3">
+                                    <label for="lugar_exequias" class="form-label">Lugar de exequias</label>
+                                    <input type="text"  class="form-control" id="lugar_exequias"
+                                        aria-describedby="nameHelp" name="lugar_exequias" required placeholder="Lugar de exequias">
+                                </div>
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <a href="{{ route('clientes.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('obituarios.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </form>
                         </div>

@@ -80,6 +80,7 @@
                                 <th scope="col">Nombre del Cliente</th>
                                 <th scope="col">Nombre de la sala</th>
                                 <th scope="col">Tiene Streaming</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -89,18 +90,18 @@
                                 <th scope="row">{{ $sala->id }}</th>
                                 <td>{{ $sala->nombre_cliente }}</td>
                                 <td>{{ $sala->nombre_sala }}</td>
-                                <td>{{ $sala->streaming_sala }}</td>
+                                <?php
+                                $txt_streaming = $sala->streaming_sala == '1' ? 'Si' : 'No';
+                                ?>
+                                <td>{{ $txt_streaming }}</td>
+                                <?php
+                                $txt_estado = $sala->estado_sala == '1' ? 'Activo' : 'Inactivo';
+                                ?>
+                                <td>{{ $txt_estado }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('salas.edit', ['sala' => $sala->id]) }}"
                                             class="btn btn-primary">Editar</a>
-
-                                        <form action="{{ route('salas.destroy', ['sala' => $sala->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -95,18 +95,14 @@
                                 <td>{{ $cliente->direccion_cliente }}</td>
                                 <td>{{ $cliente->telefono_cliente }}</td>
                                 <td>{{ $cliente->email_cliente }}</td>
-                                <td>{{ $cliente->estado_cliente }}</td>
+                                <?php
+                                $txt_estado = $cliente->estado_cliente == '1' ? 'Activo' : 'Inactivo';
+                                ?>
+                                <td>{{ $txt_estado }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
                                             class="btn btn-primary">Editar</a>
-
-                                        <form action="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

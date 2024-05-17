@@ -126,19 +126,16 @@
                                     <input type="text" required class="form-control" id="email" name="email"
                                         placeholder="eMail del cliente" value="{{ $cliente->email_cliente }}">
                                 </div>
-                                <?php
-                                $estado = $cliente->estado_cliente;
-                                $che_estado = $estado == '1' ? 'checked' : '';
-                                ?>
                                 <div class="mb-3">
+                                    <?php
+                                    $estado = $cliente->estado_cliente;
+                                    $che_estado = $estado == '1' ? 'checked' : '';
+                                    ?>
                                     <label for="estado" class="form-label">Activo </label>
-                                    <input type="checkbox"  class="form-control" id="estado" name="estado"
-                                        value="{{ $cliente->estado_cliente }}" {{ $che_estado }}>
+                                    <input type="checkbox" class="form-control" id="estado" name="estado"
+                                        {{ $che_estado }}>
                                 </div>
-                                <?php
-                                $estado = $cliente->estado_cliente;
-                                $che_estado = $estado == '1' ? 'checked' : '';
-                                ?>
+
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Actualizar</button>
                                     <a href="{{ route('clientes.index') }}" class="btn btn-warning">Cancelar</a>

@@ -117,18 +117,26 @@
                                     <input type="text" required class="form-control" id="nombre" name="nombre"
                                         placeholder="Nombre de la sala (si lo tiene)" value="{{ $sala->nombre_sala }}">
                                 </div>
-                                <?php
-                                $streaming = $sala->streaming_sala;
-                                $che_stream = $streaming == '1' ? 'checked' : '';
-                                ?>
                                 <div class="mb-3">
+                                    <?php
+                                    $che_streaming = $sala->streaming_sala == '1' ? 'checked' : '';
+                                    ?>
                                     <label for="streaming" class="form-label">Streaming</label>
                                     <input type="checkbox" class="form-control" id="streaming" name="streaming"
-                                    value="{{ $sala->streaming_sala }}" {{ $che_stream }}">
+                                    {{ $che_streaming }}>
+                                </div>
+                                <div class="mb-3">
+                                    <?php
+                                    $estado = $sala->estado_sala;
+                                    $che_estado = $estado == '1' ? 'checked' : '';
+                                    ?>
+                                    <label for="estado" class="form-label">Activo </label>
+                                    <input type="checkbox" class="form-control" id="estado" name="estado"
+                                        {{ $che_estado }}>
                                 </div>
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Actualizar</button>
-                                    <a href="{{ route('clientes.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('salas.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </form>
                         </div>
