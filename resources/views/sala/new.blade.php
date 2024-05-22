@@ -115,11 +115,6 @@
                                     <input type="checkbox"  class="form-control" id="streaming"
                                         aria-describedby="nameHelp" name="streaming">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="estado" class="form-label">Activo </label>
-                                    <input type="checkbox"  class="form-control" id="estado"
-                                        aria-describedby="nameHelp" name="estado">
-                                </div>
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
                                     <a href="{{ route('salas.index') }}" class="btn btn-warning">Cancelar</a>

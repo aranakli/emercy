@@ -99,7 +99,7 @@
                                     <div id="codigoHelp" class="form-text">Sala Id</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cliete_id" class="form-label">Cliente</label>
+                                    <label for="cliente_id" class="form-label">Cliente</label>
                                     <select class="form-select" id="cliente_id" name="cliente_id" required>
                                         <option selected disabled value="">Elegir uno...</option>
                                         @foreach ($clientes as $cliente)

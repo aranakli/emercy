@@ -76,7 +76,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Salas') }}
+                {{ __('Visitante') }}
             </h2>
         </x-slot>
         <div class="container">
@@ -85,19 +85,19 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-user-plus"></i>
-                            Agregar nueva sala
+                            Agregar nuevo visitante
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('salas.store') }}">
+                            <form method="POST" action="{{ route('visitantes.store') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="id" class="form-label">Id Sala</label>
+                                    <label for="id" class="form-label">Id visitante</label>
                                     <input type="hidden" class="form-control" id="id" aria-describedby="idHelp"
                                         name="id" disabled="disabled">
-                                    <div id="idHelp" class="form-text">Id Sala</div>
+                                    <div id="idHelp" class="form-text">Id visitante</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cliete_id" class="form-label">Cliente</label>
+                                    <label for="cliente_id" class="form-label">Funeraria</label>
                                     <select class="form-select" id="cliente_id" name="cliente_id" required>
                                         <option selected disabled value="">Elegir uno...</option>
                                         @foreach ($clientes as $cliente)
@@ -106,18 +106,33 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text"  class="form-control" id="nombre"
-                                        aria-describedby="nameHelp" name="nombre" placeholder="Nombre de la sala (si lo tiene)">
+                                    <label for="nombre_visitante" class="form-label">Nombre visitante</label>
+                                    <input type="text"  class="form-control" id="nombre_visitante"
+                                        aria-describedby="nameHelp" name="nombre_visitante" required placeholder="Nombre del visitante">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="streaming" class="form-label">Streaming</label>
-                                    <input type="checkbox"  class="form-control" id="streaming"
-                                        aria-describedby="nameHelp" name="streaming">
+                                    <label for="email" class="form-label">eMail visitante</label>
+                                    <input type="email"  class="form-control" id="email"
+                                        aria-describedby="nameHelp" name="email" required placeholder="eMail del visitante">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefono" class="form-label">Telefono del visitante</label>
+                                    <input type="number"  class="form-control" id="telefono"
+                                        aria-describedby="nameHelp" name="telefono" required placeholder="Telefonno del visitante">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tel_confirma" class="form-label">Telefono confirmado</label>
+                                    <input type="checkbox"  class="form-control" id="tel_confirma"
+                                        aria-describedby="nameHelp" name="tel_confirma"  placeholder="Fecha de fallecimiento">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <input type="checkbox"  class="form-control" id="estado"
+                                        aria-describedby="nameHelp" name="estado"  placeholder="Esatdo del visiatnte">
                                 </div>
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <a href="{{ route('salas.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('visitantes.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </form>
                         </div>

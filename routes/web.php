@@ -73,12 +73,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/obituarios/{obituario}', [ObituarioController::class, 'update'])->name('obituarios.update');
     Route::get('/obituarios/{obituario}/edit', [ObituarioController::class, 'edit'])->name('obituarios.edit');
     // Rutas de pqrss
-    Route::get('/PQRSs', [PQRSController::class, 'index'])->name('PQRSs.index');
-    Route::post('/PQRSs', [PQRSController::class, 'store'])->name('PQRSs.store');
-    Route::get('/PQRSs/create', [PQRSController::class, 'create'])->name('PQRSs.create');
-    Route::delete('/PQRSs/{PQRS}', [PQRSController::class, 'destroy'])->name('PQRSs.destroy');
-    Route::put('/PQRSs/{PQRS}', [PQRSController::class, 'update'])->name('PQRSs.update');
-    Route::get('/PQRSs/{PQRS}/edit', [PQRSController::class, 'edit'])->name('PQRSs.edit');
+    Route::get('/pqrss', [pqrsController::class, 'index'])->name('pqrss.index');
+    Route::post('/pqrss', [pqrsController::class, 'store'])->name('pqrss.store');
+    Route::get('/pqrss/create', [pqrsController::class, 'create'])->name('pqrss.create');
+    Route::delete('/pqrss/{pqrs}', [pqrsController::class, 'destroy'])->name('pqrss.destroy');
+    Route::put('/pqrss/{pqrs}', [pqrsController::class, 'update'])->name('pqrss.update');
+    Route::get('/pqrss/{pqrs}/edit', [pqrsController::class, 'edit'])->name('pqrss.edit');
 });
 
 require __DIR__ . '/auth.php';

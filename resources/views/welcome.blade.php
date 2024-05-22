@@ -900,6 +900,13 @@
                 --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity))
             }
         }
+
+        footer {
+            text-align: center;
+            padding: 3px;
+            background-color: rgb(54, 6, 112);
+            color: white;
+        }
     </style>
 </head>
 
@@ -937,13 +944,15 @@
                 </header>
 
                 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-                <img src="images/back2.png" alt="Descripción de la imagen">
-                        <footer class="py-16 text-center text-sm text-black dark:text-white/70 fixed bottom-0 w-full">
-                            Desarrollado por spiderkli 2024 (C) / Juan Arana - Alison Angulo - Diony Velez - Daniel Gomez
-                        </footer>
+                    <img src="images/back2.png" alt="Descripción de la imagen">
+                    {{-- <footer class="py-17 text-center text-sm text-black dark:text-white/70 fixed bottom-10 w-full"> --}}
+                    <footer>
+                        <p> Desarrollado por spiderkli 2024 (C) / Juan Arana - Alison Angulo - Diony Velez</p>
+                    </footer>
 
                 </body>
             </div>
         </div>
     </div>
+
 </html>

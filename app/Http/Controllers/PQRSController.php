@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PQRS;
+use App\Models\pqrs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,9 +29,6 @@ class PQRSController extends Controller
         ->orderBy('nombre_cliente')
         ->get();
 
-        $clientes = DB::table('visitantes')
-        ->orderBy('nombre_visitante')
-        ->get();
         return view('pqrs.new', ['clientes' => $clientes]);
     }
 
@@ -42,19 +39,16 @@ class PQRSController extends Controller
     {
         $pqrs = new Pqrs();
         //$pqrs->id = strtoupper($request->id);
-        $pqrs->cliente_id = $request->nombre;
-        $pqrs->tipo_pqrs = $request->tipo;
-        $pqrs->visitante_id = $request->visitante;
+        $pqrs->cliente_id = $request->cliente_id;
+        $pqrs->tipo_pqrs = $request->tipo_pqrs;
         $pqrs->descripcion_pqrs = $request->descripcion;
         $pqrs->respuesta_pqrs = $request->respuesta;
         $pqrs->estado_pqrs = $request->estado;
-
         $pqrs->save();
 
         $pqrss = DB::table('pqrss')
             ->join('clientes', 'pqrss.cliente_id', '=', 'clientes.id')
-            ->join('visitantes', 'pqrss.visitante_id', '=', 'visitantes.id')
-            ->select('pqrss.*', 'clientes.nombre_cliente', 'visitantes.nombre_visitante')
+            ->select('pqrss.*', 'clientes.nombre_cliente')
             ->get();
         return view('pqrs.index', ['pqrss'=>$pqrss]);
     }
@@ -77,11 +71,7 @@ class PQRSController extends Controller
         ->orderBy('nombre_cliente')
         ->get();
 
-        $visitantes = DB::table('visitantes')
-        ->orderBy('nombre_visitante')
-        ->get();
-
-        return view('pqrs.edit', ['pqrs' => $pqrs, 'clientes' => $clientes, 'visitantes' => $visitantes]);
+        return view('pqrs.edit', ['pqrs' => $pqrs, 'clientes' => $clientes]);
     }
 
     /**
@@ -90,17 +80,15 @@ class PQRSController extends Controller
     public function update(Request $request, string $id)
     {
         $pqrs= Pqrs::find($id);
-        $pqrs->cliente_id = $request->nombre;
-        $pqrs->tipo_pqrs = $request->tipo;
-        $pqrs->visitante_id = $request->visitante;
+        $pqrs->cliente_id = $request->cliente_id;
+        $pqrs->tipo_pqrs = $request->tipo_pqrs;
         $pqrs->descripcion_pqrs = $request->descripcion;
         $pqrs->respuesta_pqrs = $request->respuesta;
         $pqrs->estado_pqrs = $request->estado;
         $pqrs->save();
         $pqrss = DB::table('pqrss')
-            ->join('clientes', 'pqrss.id_cliente', '=', 'clientes.id')
-            ->join('visitantes', 'pqrss.visitante_id', '=', 'visitantes.id')
-            ->select('pqrss.*', 'clientes.nombre_cliente', 'visitantes.nombre_visitante')
+            ->join('clientes', 'pqrss.cliente_id', '=', 'clientes.id')
+            ->select('pqrss.*', 'clientes.nombre_cliente')
             ->get();
         return view('pqrs.index', ['pqrss' => $pqrss]);
     }
@@ -110,14 +98,6 @@ class PQRSController extends Controller
      */
     public function destroy(string $id)
     {
-        $pqrs= Pqrs::find($id);
-        $pqrs->delete();
 
-        $pqrss = DB::table('pqrss')
-            ->join('clientes', 'pqrss.id_cliente', '=', 'clientes.id')
-            ->join('visitantes', 'pqrss.visitante_id', '=', 'visitantes.id')
-            ->select('pqrss.*', 'clientes.nombre_cliente', 'visitantes.nombre_visitante')
-            ->get();
-        return view('pqrs.index', ['pqrss' => $pqrss]);
     }
 }

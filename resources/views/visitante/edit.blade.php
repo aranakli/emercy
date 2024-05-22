@@ -29,7 +29,7 @@
         }
 
         .card-header {
-            background-color: #007bff;
+            background-color: #4B15BF;
             color: #fff;
             font-weight: bold;
             border-radius: 10px 10px 0 0;
@@ -76,7 +76,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Salas') }}
+                {{ __('Visitantess') }}
             </h2>
         </x-slot>
         <div class="container">
@@ -85,26 +85,28 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-user-edit"></i>
-                            Editar sala
+                            Editar visitante
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('salas.update', ['sala' => $sala->id]) }}">
+                            <form method="POST"
+                                action="{{ route('visitantes.update', ['visitante' => $visitante->id]) }}">
                                 @method('put')
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="id" class="form-label">Id Sala</label>
+                                    <label for="codigo" class="form-label">Id visitante</label>
                                     <input type="hidden" class="form-control" id="id"
                                         aria-describedby="codigoHelp" name="id" disabled="disabled"
-                                        value="{{ $sala->id }}">
-                                    <div id="codigoHelp" class="form-text">Sala Id</div>
+                                        value="{{ $visitante->id }}">
+                                    <div id="codigoHelp" class="form-text">ID Visitante</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cliete_id" class="form-label">Cliente</label>
+                                    <label for="cliente_id" class="form-label">Funeraria</label>
                                     <select class="form-select" id="cliente_id" name="cliente_id" required>
                                         <option selected disabled value="">Elegir uno...</option>
                                         @foreach ($clientes as $cliente)
-                                            @if ($cliente->id == $sala->cliente_id)
-                                                <option selected value="{{ $cliente->id }}"> {{ $cliente->nombre_cliente }}</option>
+                                            @if ($cliente->id == $visitante->cliente_id)
+                                                <option selected value="{{ $cliente->id }}">
+                                                    {{ $cliente->nombre_cliente }}</option>
                                             @else
                                                 <option value="{{ $cliente->id }}"> {{ $cliente->nombre_cliente }}
                                                 </option>
@@ -113,22 +115,41 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" required class="form-control" id="nombre" name="nombre"
-                                        placeholder="Nombre de la sala (si lo tiene)" value="{{ $sala->nombre_sala }}">
+                                    <label for="nombre_visitante" class="form-label">Nombre visitante</label>
+                                    <input type="text"  class="form-control" id="nombre_visitante"
+                                        aria-describedby="nameHelp" name="nombre_visitante" required placeholder="Nombre del visitante" value="{{ $visitante->nombre_visitante }}">
                                 </div>
-                                <?php
-                                $streaming = $sala->streaming_sala;
-                                $che_stream = $streaming == '1' ? 'checked' : '';
-                                ?>
                                 <div class="mb-3">
-                                    <label for="streaming" class="form-label">Streaming</label>
-                                    <input type="checkbox" class="form-control" id="streaming" name="streaming"
-                                    value="{{ $sala->streaming_sala }}" {{ $che_stream }}">
+                                    <label for="email" class="form-label">eMail visitante</label>
+                                    <input type="email"  class="form-control" id="email"
+                                        aria-describedby="nameHelp" name="email" required placeholder="eMail del visitante" value="{{ $visitante->email_visitante }}">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="telefono" class="form-label">Telefono del visitante</label>
+                                    <input type="number"  class="form-control" id="telefono"
+                                        aria-describedby="nameHelp" name="telefono" required placeholder="Telefonno del visitante"value="{{ $visitante->telefono_visitante }}">
+                                </div>
+                                <div class="mb-3">
+                                    <?php
+                                    $che_confirma = $visitante->streaming_visitante == '1' ? 'checked' : '';
+                                    ?>
+                                    <label for="tel_confirma" class="form-label">Telefono confirmado</label>
+                                    <input type="checkbox" class="form-control" id="tel_confirma" name="tel_confirma"
+                                    {{ $che_confirma }}>
+                                </div>
+                                <div class="mb-3">
+                                    <?php
+                                    $estado = $visitante->estado_visitante;
+                                    $che_estado = $estado == '1' ? 'checked' : '';
+                                    ?>
+                                    <label for="estado" class="form-label">Activo </label>
+                                    <input type="checkbox" class="form-control" id="estado" name="estado"
+                                        {{ $che_estado }}>
+                                </div>
+
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Actualizar</button>
-                                    <a href="{{ route('clientes.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('visitantes.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </form>
                         </div>

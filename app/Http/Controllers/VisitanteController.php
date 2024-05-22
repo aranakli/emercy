@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Visitante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +14,8 @@ class VisitanteController extends Controller
     public function index()
     {
         $visitantes = DB::table('visitantes')
-        ->select('visitantes.*')
+        ->join('clientes', 'visitantes.cliente_id', '=', 'clientes.id')
+        ->select('visitantes.*', 'clientes.nombre_cliente')
         ->get();
     return view('visitante.index', ['visitantes' => $visitantes]);
     }
@@ -24,7 +25,10 @@ class VisitanteController extends Controller
      */
     public function create()
     {
-        //
+        $clientes = DB::table('clientes')
+            ->orderBy('nombre_cliente')
+            ->get();
+        return view('visitante.new', ['clientes' => $clientes]);
     }
 
     /**
@@ -32,7 +36,27 @@ class VisitanteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $visitante = new Visitante();
+        $visitante->cliente_id = $request->cliente_id;
+        $visitante->nombre_visitante = $request->nombre_visitante;
+        $visitante->email_visitante = $request->email;
+        $visitante->telefono_visitante = $request->telefono;
+        if ($request->tel_confirma == 'on') {
+            $visitante->tel_confirma_visitante = 1;
+        } else {
+            $visitante->tel_confirma_visitante = 0;
+        }
+        if ($request->estado == 'on') {
+            $visitante->estado_visitante = 1;
+        } else {
+            $visitante->estado_visitante = 0;
+        }
+        $visitante->save();
+        $visitantes = DB::table('visitantes')
+            ->join('clientes', 'visitantes.cliente_id', '=', 'clientes.id')
+            ->select('visitantes.*', 'clientes.nombre_cliente')
+            ->get();
+        return view('visitante.index', ['visitantes' => $visitantes]);
     }
 
     /**
@@ -48,7 +72,12 @@ class VisitanteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $visitante = Visitante::find($id);
+        $clientes = DB::table('clientes')
+            ->orderBy('nombre_cliente')
+            ->get();
+        return view('visitante.edit', ['visitante' => $visitante, 'clientes' => $clientes]);
+
     }
 
     /**
@@ -56,7 +85,27 @@ class VisitanteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $visitante = Visitante::find($id);
+        $visitante->cliente_id = $request->cliente_id;
+        $visitante->nombre_visitante = $request->nombre_visitante;
+        $visitante->email_visitante = $request->email;
+        $visitante->telefono_visitante = $request->telefono;
+        if ($request->tel_confirma == 'on') {
+            $visitante->tel_confirma_visitante = 1;
+        } else {
+            $visitante->tel_confirma_visitante = 0;
+        }
+        if ($request->estado == 'on') {
+            $visitante->estado_visitante = 1;
+        } else {
+            $visitante->estado_visitante = 0;
+        }
+        $visitante->save();
+        $visitantes = DB::table('visitantes')
+            ->join('clientes', 'visitantes.cliente_id', '=', 'clientes.id')
+            ->select('visitantes.*', 'clientes.nombre_cliente')
+            ->get();
+        return view('visitante.index', ['visitantes' => $visitantes]);
     }
 
     /**

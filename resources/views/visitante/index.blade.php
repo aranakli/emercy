@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Salas</title>
+    <title>Clientes</title>
     <style>
         body {
             background-color: #f2f2f2;
@@ -68,7 +68,7 @@
                     <h2 class="font-semibold text-xl text-white leading-tight">Visitantes</h2>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('visitantes.create') }}" class="btn btn-primary mb-3">Agregar Visitante</a>
+                    <a href="{{ route('visitantes.create') }}" class="btn btn-primary mb-3">Agregar visitante</a>
                     @if ($error ?? '')
                     <div class="alert alert-danger">{{ $error }}</div>
                     @endif
@@ -76,31 +76,36 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Id Visitante</th>
-                                <th scope="col">Nombre del Cliente</th>
-                                <th scope="col">Nombre de la sala</th>
-                                <th scope="col">Tiene Streaming</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Funeraria</th>
+                                <th scope="col">Nombre completo visitante</th>
+                                <th scope="col">eMail visitante</th>
+                                <th scope="col">Teléfono visitante</th>
+                                <th scope="col">Teléfono confirmado</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($salas as $sala)
+                            @foreach ($visitantes as $visitante)
                             <tr>
-                                <th scope="row">{{ $sala->id }}</th>
-                                <td>{{ $sala->nombre_cliente }}</td>
-                                <td>{{ $sala->nombre_sala }}</td>
-                                <td>{{ $sala->streaming_sala }}</td>
+                                <th scope="row">{{ $visitante->id }}</th>
+                                <td>{{ $visitante->nombre_cliente }}</td>
+                                <td>{{ $visitante->nombre_visitante }}</td>
+                                <td>{{ $visitante->email_visitante }}</td>
+                                <td>{{ $visitante->telefono_visitante }}</td>
+                                <?php
+                                $txt_confirma = $visitante->tel_confirma_visitante == '1' ? 'Si' : 'No';
+                                ?>
+                                <td>{{ $txt_confirma }}</td>
+                                <?php
+                                $txt_estado = $visitante->estado_visitante == '1' ? 'Activo' : 'Inactivo';
+                                ?>
+                                <td>{{ $txt_estado }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('salas.edit', ['sala' => $sala->id]) }}"
+                                        <a href="{{ route('visitantes.edit', ['visitante' => $visitante->id]) }}"
                                             class="btn btn-primary">Editar</a>
-
-                                        <form action="{{ route('salas.destroy', ['sala' => $sala->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

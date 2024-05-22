@@ -78,10 +78,10 @@ class ObituarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $obituario = new Obituario();
+        $obituario = Obituario::find($id);
         $obituario->cliente_id = $request->cliente_id;
         $obituario->nombre_obituario = $request->nombre;
-        $obituario->apellido_obituario = $request->nombre;
+        $obituario->apellido_obituario = $request->apellido;
         $obituario->fecha_nacimiento_obituario = $request->fecha_nacimiento;
         $obituario->fecha_muerte_obituario = $request->fecha_muerte;
         $obituario->fecha_exequias_obituario = $request->fecha_exequias;
