@@ -59,16 +59,16 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Clientes') }}
+                {{ __('Familiares') }}
             </h2>
         </x-slot>
         <div class="container my-5">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="font-semibold text-xl text-white leading-tight">Clientes</h2>
+                    <h2 class="font-semibold text-xl text-white leading-tight">Familiares</h2>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3">Agregar cliente</a>
+                    <a href="{{ route('familiares.create') }}" class="btn btn-primary mb-3">Agregar familiar</a>
                     @if ($error ?? '')
                     <div class="alert alert-danger">{{ $error }}</div>
                     @endif
@@ -77,36 +77,38 @@
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">NIT</th>
-                                <th scope="col">Dirección</th>
+                                <th scope="col">Funearia</th>
+                                <th scope="col">Obituario</th>
+                                <th scope="col">Nombre Familiar</th>
                                 <th scope="col">Teléfono</th>
+                                <th scope="col">Parentezco</th>
                                 <th scope="col">eMail</th>
+                                <th scope="col">Autoriza</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $cliente)
+                            @foreach ($familiares as $familiar)
                             <tr>
-                                <th scope="row">{{ $cliente->id }}</th>
-                                <td>{{ $cliente->nombre_cliente }}</td>
-                                <td>{{ $cliente->nit_cliente }}</td>
-                                <td>{{ $cliente->direccion_cliente }}</td>
-                                <td>{{ $cliente->telefono_cliente }}</td>
-                                <td>{{ $cliente->email_cliente }}</td>
-                                <td>{{ $cliente->estado_cliente }}</td>
+                                <th scope="row">{{ $familiar->id }}</th>
+                                <td>{{ $familiar->nombre_cliente }}</td>
+                                <td>{{ $familiar->nombre_obituario }}</td>
+                                <td>{{ $familiar->nombre_familiar }}</td>
+                                <td>{{ $familiar->telefono_familiar }}</td>
+                                <td>{{ $familiar->parentesco_familiar }}</td>
+                                <td>{{ $familiar->email_familiar }}</td>
+                                <?php
+                                $txt_autoriza = $familiar->autoriza_familiar == '1' ? 'Si' : 'No';
+                                $txt_estado = $familiar->estado_familiar == '1' ? 'Activo' : 'Inactivo';
+                                ?>
+                                <td>{{ $txt_autoriza }}</td>
+                                <td>{{ $txt_estado }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
+                                        <a href="{{ route('familiares.edit', ['familiar' => $familiar->id]) }}"
                                             class="btn btn-primary">Editar</a>
 
-                                        <form action="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +13,12 @@ class VentaController extends Controller
      */
     public function index()
     {
-        //
+        $ventas = DB::table('ventas')
+        ->join('clientes', 'ventas.cliente_id', '=', 'clientes.id')
+        ->join('productos', 'ventas.producto_id', '=', 'productos.id')
+        ->select('ventas.*', 'clientes.nombre_cliente', 'productos.nombre_producto')
+        ->get();
+    return view('venta.index', ['ventas' => $ventas]);
     }
 
     /**
@@ -44,7 +50,15 @@ class VentaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $venta = Venta::find($id);
+        $clientes = DB::table('clientes')
+            ->orderBy('nombre_cliente')
+            ->get();
+        $productos = DB::table('productos')
+            ->orderBy('nombre_producto')
+            ->get();
+        return view('venta.edit', ['venta' => $venta, 'clientes' => $clientes, 'productos' => $productos ]);
+
     }
 
     /**
@@ -52,7 +66,22 @@ class VentaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $venta = Venta::find($id);
+        if ($request->estado == 'on') {
+            $venta->estado_venta = 1;
+        } else {
+            $venta->estado_venta = 0;
+        }
+        $venta->save();
+
+        $ventas = DB::table('ventas')
+            ->join('clientes', 'ventas.cliente_id', '=', 'clientes.id')
+            ->join('productos', 'ventas.producto_id', '=', 'productos.id')
+            ->select('ventas.*', 'clientes.nombre_cliente', 'productos.nombre_producto')
+            ->get();
+
+        return view('venta.index', ['ventas' => $ventas]);
+
     }
 
     /**

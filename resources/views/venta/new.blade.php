@@ -69,6 +69,11 @@
             border-color: #1e7e34;
             color: #fff;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -76,19 +81,20 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Clientes') }}
+                {{ __('Familiares') }}
             </h2>
         </x-slot>
-        <div class="container">
+        <div class="container  my-5">
             <div class="row justify-content-center">
                 <div class="col-md-8">
+
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-user-plus"></i>
-                            Agregar nuevo cliente
+                            Agregar nuevo familiar
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('clientes.store') }}">
+                            <form method="POST" action="{{ route('familiares.store') }}">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="id" class="form-label">Codigo</label>
@@ -96,44 +102,56 @@
                                         name="id" disabled="disabled">
                                     <div id="idHelp" class="form-text">Código Id</div>
                                 </div>
+                                <label for="cliente_id" class="p-1 text-gray-900 dark:text-gray-100">Funeraria:</label>
+                                <select class="form-select" id="cliente_id" name="cliente_id" require>
+                                    <option selected disabled value="">Seleccione una funeraria</option>
+                                    @foreach ($clientes as $cliente)
+                                        <option value="{{ $cliente->id }}">{{ $cliente->nombre_cliente }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="obituario_id" class="p-1 text-gray-900 dark:text-gray-100">Obituario:</label>
+                                <select class="form-select" id="obituario_id" name="obituario_id" require>
+                                    <option selected disabled value="">Seleccione un obituario</option>
+                                    @foreach ($obituarios as $obituario)
+                                        <option value="{{ $obituario->id }}">{{ $obituario->nombre_obituario }}</option>
+                                    @endforeach
+                                </select>
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <label for="nombre" class="form-label">Nombre familiar</label>
                                     <input type="text" required class="form-control" id="nombre"
                                         aria-describedby="nameHelp" name="nombre" placeholder="Nombre  del cliente">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nit" class="form-label">NIT</label>
-                                    <input type="number" required class="form-control" id="nit"
-                                        aria-describedby="nameHelp" name="nit"
-                                        placeholder="Numero de Identificacion Tributaria NIT cliente" min="1"
-                                        max="2147483647">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="direccion" class="form-label">Direccion</label>
-                                    <input type="text" required class="form-control" id="direccion"
-                                        aria-describedby="nameHelp" name="direccion"
-                                        placeholder="Direccion del cliente">
-                                </div>
-                                <div class="mb-3">
                                     <label for="telefono" class="form-label">Telefono</label>
                                     <input type="number" required class="form-control" id="telefono"
-                                        aria-describedby="nameHelp" name="telefono" placeholder="Telefono cliente"
-                                        min="1" max="9947483647">
+                                        aria-describedby="nameHelp" name="telefono" placeholder="Numero telefónico"
+                                        min="1" max="2147483647">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parentesco" class="form-label">Parentesco</label>
+                                    <input type="text" required class="form-control" id="parentesco"
+                                        aria-describedby="nameHelp" name="parentesco"
+                                        placeholder="parentesco del familiar">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">eMail</label>
                                     <input type="email" required class="form-control" id="email"
-                                        aria-describedby="nameHelp" name="email" placeholder="Email del cliente">
+                                        aria-describedby="nameHelp" name="email"
+                                        placeholder="Correo electronico del familiar">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="autoriza" class="form-label">Autorizador</label>
+                                    <input type="checkbox" required class="form-control" id="autoriza"
+                                        aria-describedby="nameHelp" name="autoriza" placeholder="Autoriza">
                                 </div>
                                 <div class="mb-3">
                                     <label for="estado" class="form-label">Activo </label>
-                                    <input type="checkbox"  class="form-control" id="estado"
+                                    <input type="checkbox" class="form-control" id="estado"
                                         aria-describedby="nameHelp" name="estado">
                                 </div>
-
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <a href="{{ route('clientes.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('familiares.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </form>
                         </div>
@@ -142,20 +160,6 @@
             </div>
         </div>
     </x-app-layout>
-
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script> -->
 </body>
 
 </html>

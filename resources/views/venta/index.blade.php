@@ -59,16 +59,16 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Clientes') }}
+                {{ __('Ventas') }}
             </h2>
         </x-slot>
         <div class="container my-5">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="font-semibold text-xl text-white leading-tight">Clientes</h2>
+                    <h2 class="font-semibold text-xl text-white leading-tight">Ventas</h2>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3">Agregar cliente</a>
+                    {{-- <a href="{{ route('ventas.create') }}" class="btn btn-primary mb-3">Agregar venta</a> --}}
                     @if ($error ?? '')
                     <div class="alert alert-danger">{{ $error }}</div>
                     @endif
@@ -77,36 +77,38 @@
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">NIT</th>
-                                <th scope="col">Dirección</th>
-                                <th scope="col">Teléfono</th>
-                                <th scope="col">eMail</th>
+                                <th scope="col">Funeraria</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Medio de pago</th>
+                                <th scope="col">Autorizacion electronica</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">IVA</th>
+                                <th scope="col">Total Venta</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $cliente)
+                            @foreach ($ventas as $venta)
                             <tr>
-                                <th scope="row">{{ $cliente->id }}</th>
-                                <td>{{ $cliente->nombre_cliente }}</td>
-                                <td>{{ $cliente->nit_cliente }}</td>
-                                <td>{{ $cliente->direccion_cliente }}</td>
-                                <td>{{ $cliente->telefono_cliente }}</td>
-                                <td>{{ $cliente->email_cliente }}</td>
-                                <td>{{ $cliente->estado_cliente }}</td>
+                                <th scope="row">{{ $venta->id }}</th>
+                                <td>{{ $venta->nombre_cliente }}</td>
+                                <td>{{ $venta->nombre_producto }}</td>
+                                <td>{{ $venta->medio_pago_venta }}</td>
+                                <td>{{ $venta->autorizacion_venta }}</td>
+                                <td>{{ $venta->cantidad_venta }}</td>
+                                <td>{{ $venta->precio_venta }}</td>
+                                <td>{{ $venta->iva_venta }}</td>
+                                <td>{{ $venta->total_venta }}</td>
+                                <?php
+                                $txt_estado = $venta->estado_venta == '1' ? 'Activo' : 'Anulada';
+                                ?>
+                                <td>{{ $txt_estado }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
+                                        <a href="{{ route('ventas.edit', ['venta' => $venta->id]) }}"
                                             class="btn btn-primary">Editar</a>
-
-                                        <form action="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Clientes</title>
+    <title>Productos</title>
     <style>
         body {
             background-color: #f2f2f2;
@@ -59,16 +59,16 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Clientes') }}
+                {{ __('Productos') }}
             </h2>
         </x-slot>
         <div class="container my-5">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="font-semibold text-xl text-white leading-tight">Clientes</h2>
+                    <h2 class="font-semibold text-xl text-white leading-tight">Productos</h2>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3">Agregar cliente</a>
+                    <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Agregar Producto</a>
                     @if ($error ?? '')
                     <div class="alert alert-danger">{{ $error }}</div>
                     @endif
@@ -76,37 +76,33 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">NIT</th>
-                                <th scope="col">Dirección</th>
-                                <th scope="col">Teléfono</th>
-                                <th scope="col">eMail</th>
-                                <th scope="col">Estado</th>
+                                <th scope="col">Id Producto</th>
+                                <th scope="col">Nombre del Cliente</th>
+                                <th scope="col">Nombre del producto</th>
+                                <th scope="col">Descipción del producto</th>
+                                <th scope="col">Precio del producto</th>
+                                <th scope="col">Stock del producto</th>
+                                <th scope="col">Estado del producto</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $cliente)
+                            @foreach ($productos as $producto)
                             <tr>
-                                <th scope="row">{{ $cliente->id }}</th>
-                                <td>{{ $cliente->nombre_cliente }}</td>
-                                <td>{{ $cliente->nit_cliente }}</td>
-                                <td>{{ $cliente->direccion_cliente }}</td>
-                                <td>{{ $cliente->telefono_cliente }}</td>
-                                <td>{{ $cliente->email_cliente }}</td>
-                                <td>{{ $cliente->estado_cliente }}</td>
+                                <th scope="row">{{ $producto->id }}</th>
+                                <td>{{ $producto->nombre_cliente }}</td>
+                                <td>{{ $producto->nombre_producto }}</td>
+                                <td>{{ $producto->descripcion_producto }}</td>
+                                <td>{{ $producto->precio_producto }}</td>
+                                <td>{{ $producto->stock_producto }}</td>
+                                <?php
+                                $txt_estado = $producto->estado_producto == '1' ? 'Activo' : 'Inactivo';
+                                ?>
+                                <td>{{ $txt_estado }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
+                                        <a href="{{ route('productos.edit', ['producto' => $producto->id]) }}"
                                             class="btn btn-primary">Editar</a>
-
-                                        <form action="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"
-                                            method='POST' style="display: inline-block">
-                                            @method('delete')
-                                            @csrf
-                                            <input class="btn btn-danger ml-2" type="submit" value="Eliminar">
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

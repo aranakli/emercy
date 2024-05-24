@@ -15,7 +15,7 @@ class FamiliarController extends Controller
     {
         $familiares = DB::table('familiares')
             ->join('clientes', 'familiares.cliente_id', '=', 'clientes.id')
-            ->join('obituarios', 'obituarios.obituario_id', '=', 'obituarios.id')
+            ->join('obituarios', 'familiares.obituario_id', '=', 'obituarios.id')
             ->select('familiares.*', 'clientes.nombre_cliente', 'obituarios.nombre_obituario')
             ->get();
         return view('familiar.index', ['familiares' => $familiares]);
@@ -47,13 +47,22 @@ class FamiliarController extends Controller
         $familiar->telefono_familiar = $request->telefono;
         $familiar->parentesco_familiar = $request->parentesco;
         $familiar->email_familiar = $request->email;
-        $familiar->autoriza_familiar = $request->autoriza;
-        $familiar->estado_familiar = $request->estado;
+        if ($request->autoriza == 'on') {
+            $familiar->autoriza_familiar = 1;
+        } else {
+            $familiar->autoriza_familiar = 0;
+        }
+        if ($request->estado == 'on') {
+            $familiar->estado_familiar = 1;
+        } else {
+            $familiar->estado_familiar = 0;
+        }
         $familiar->save();
+
         $familiares = DB::table('familiares')
-            ->join('clientes', 'familiars.cliente_id', '=', 'clientes.id')
-            ->join('obituarios', 'obituarios.obituario_id', '=', 'obituarios.id')
-            ->select('familiars.*', 'clientes.nombre_cliente', 'obituarios.nombre_obituario')
+            ->join('clientes', 'familiares.cliente_id', '=', 'clientes.id')
+            ->join('obituarios', 'familiares.obituario_id', '=', 'obituarios.id')
+            ->select('familiares.*', 'clientes.nombre_cliente', 'obituarios.nombre_obituario')
             ->get();
 
         return view('familiar.index', ['familiares' => $familiares]);
@@ -94,14 +103,22 @@ class FamiliarController extends Controller
         $familiar->telefono_familiar = $request->telefono;
         $familiar->parentesco_familiar = $request->parentesco;
         $familiar->email_familiar = $request->email;
-        $familiar->autoriza_familiar = $request->autoriza;
-        $familiar->estado_familiar = $request->estado;
+        if ($request->autoriza == 'on') {
+            $familiar->autoriza_familiar = 1;
+        } else {
+            $familiar->autoriza_familiar = 0;
+        }
+        if ($request->estado == 'on') {
+            $familiar->estado_familiar = 1;
+        } else {
+            $familiar->estado_familiar = 0;
+        }
         $familiar->save();
 
         $familiares = DB::table('familiares')
-            ->join('clientes', 'familiars.cliente_id', '=', 'clientes.id')
-            ->join('obituarios', 'obituarios.obituario_id', '=', 'obituarios.id')
-            ->select('familiars.*', 'clientes.nombre_cliente', 'obituarios.nombre_obituario')
+            ->join('clientes', 'familiares.cliente_id', '=', 'clientes.id')
+            ->join('obituarios', 'familiares.obituario_id', '=', 'obituarios.id')
+            ->select('familiares.*', 'clientes.nombre_cliente', 'obituarios.nombre_obituario')
             ->get();
 
         return view('familiar.index', ['familiares' => $familiares]);

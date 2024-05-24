@@ -69,6 +69,11 @@
             border-color: #1e7e34;
             color: #fff;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +13,11 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        $productos = DB::table('productos')
+            ->join('clientes', 'productos.cliente_id', '=', 'clientes.id')
+            ->select('productos.*' , 'clientes.nombre_cliente')
+            ->get();
+        return view('producto.index', ['productos' => $productos]);
     }
 
     /**
@@ -20,7 +25,10 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        $clientes = DB::table('clientes')
+            ->orderBy('nombre_cliente')
+            ->get();
+        return view('producto.new', ['clientes' => $clientes]);
     }
 
     /**
@@ -28,7 +36,23 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $producto = new Producto();
+        $producto->cliente_id = $request->cliente_id;
+        $producto->nombre_producto = $request->nombre;
+        $producto->descripcion_producto = $request->descripcion;
+        $producto->precio_producto = $request->precio;
+        $producto->stock_producto = $request->stock;
+        if ($request->estado == 'on') {
+            $producto->estado_producto = 1;
+        } else {
+            $producto->estado_producto = 0;
+        }
+        $producto->save();
+        $productos = DB::table('productos')
+            ->join('clientes', 'productos.cliente_id', '=', 'clientes.id')
+            ->select('productos.*', 'clientes.nombre_cliente')
+            ->get();
+        return view('producto.index', ['productos' => $productos]);
     }
 
     /**
@@ -44,7 +68,11 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $producto = Producto::find($id);
+        $clientes = DB::table('clientes')
+            ->orderBy('nombre_cliente')
+            ->get();
+        return view('producto.edit', ['producto' => $producto, 'clientes' => $clientes]);
     }
 
     /**
@@ -52,7 +80,23 @@ class ProductoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $producto = Producto::find($id);
+        $producto->cliente_id = $request->cliente_id;
+        $producto->nombre_producto = $request->nombre;
+        $producto->descripcion_producto = $request->descripcion;
+        $producto->precio_producto = $request->precio;
+        $producto->stock_producto = $request->stock;
+        if ($request->estado == 'on') {
+            $producto->estado_producto = 1;
+        } else {
+            $producto->estado_producto = 0;
+        }
+        $producto->save();
+        $productos = DB::table('productos')
+            ->join('clientes', 'productos.cliente_id', '=', 'clientes.id')
+            ->select('productos.*', 'clientes.nombre_cliente')
+            ->get();
+        return view('producto.index', ['productos' => $productos]);
     }
 
     /**

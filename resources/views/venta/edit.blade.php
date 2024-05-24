@@ -69,6 +69,12 @@
             border-color: #1e7e34;
             color: #fff;
         }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -76,7 +82,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Clientes') }}
+                {{ __('Ventas') }}
             </h2>
         </x-slot>
         <div class="container">
@@ -85,63 +91,77 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-user-edit"></i>
-                            Editar cliente
+                            Editar venta
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('clientes.update', ['cliente' => $cliente->id]) }}">
+                            <form method="POST" action="{{ route('ventas.update', ['venta' => $venta->id]) }}">
                                 @method('put')
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="codigo" class="form-label">Id</label>
-                                    <input type="hidden" class="form-control" id="id"
-                                        aria-describedby="codigoHelp" name="id" disabled="disabled"
-                                        value="{{ $cliente->id }}">
-                                    <div id="codigoHelp" class="form-text">Cliente Id</div>
+                                    <label for="id" class="form-label">Codigo</label>
+                                    <input type="hidden" class="form-control" id="id" aria-describedby="idHelp"
+                                        name="id" disabled="disabled" value="{{ $venta->id }}">
+                                    <div id="idHelp" class="form-text">Código Id</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" required class="form-control" id="nombre" name="nombre"
-                                        placeholder="Nombre del cliente" value="{{ $cliente->nombre_cliente }}">
+                                    <label for="cliente_id" class="form-label">Funeraria:</label>
+                                    <input type="text" class="form-control" id="cliente_id"
+                                        aria-describedby="nameHelp" name="cliente_id"
+                                        value="{{ $venta->nombre_cliente }}" disabled="disabled">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nit" class="form-label">NIT</label>
-                                    <input type="text" required class="form-control" id="nit" name="nit"
-                                        placeholder="Numero de Identificacion Tributaria NIT cliente" min="1"
-                                        max="2147483647" value="{{ $cliente->nit_cliente }}">
+                                    <label for="producto_id" class="form-label">Producto:</label>
+                                    <input type="text" class="form-control" id="producto_id"
+                                        aria-describedby="nameHelp" name="producto_id"
+                                        value="{{ $venta->nombre_producto }}" disabled="disabled">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="direccion" class="form-label">Direccion</label>
-                                    <input type="text" required class="form-control" id="direccion"
-                                        aria-describedby="nameHelp" name="direccion" placeholder="Direccion del cliente"
-                                        value="{{ $cliente->direccion_cliente }}">
+                                    <label for="medio_pago" class="form-label">Medio de pago</label>
+                                    <input type="text" required class="form-control" id="medio_pago"
+                                        aria-describedby="nameHelp" name="medio_pago"                               value="{{ $venta->medio_pago_venta }}" disabled="disabled" >
                                 </div>
                                 <div class="mb-3">
-                                    <label for="telefono" class="form-label">Telefono</label>
-                                    <input type="number" required class="form-control" id="telefono" name="telefono"
-                                        placeholder="Telefono cliente" min="1" max="9947483647"
-                                        value="{{ $cliente->telefono_cliente }}">
+                                    <label for="autorizacion" class="form-label">Autorizacion electronica</label>
+                                    <input type="text" required class="form-control" id="autorizacion"
+                                        aria-describedby="nameHelp" name="autorizacion"
+                                         value="{{ $venta->autorizacion_venta }}" disabled="disabled">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="text" required class="form-control" id="email" name="email"
-                                        placeholder="eMail del cliente" value="{{ $cliente->email_cliente }}">
+                                    <label for="cantidad" class="form-label">Cantidad</label>
+                                    <input type="text" required class="form-control" id="cantidad"
+                                        aria-describedby="nameHelp" name="cantidad"
+                                        value="{{ $venta->cantidad_venta }}" disabled="disabled">
                                 </div>
-                                <?php
-                                $estado = $cliente->estado_cliente;
-                                $che_estado = $estado == '1' ? 'checked' : '';
-                                ?>
                                 <div class="mb-3">
+                                    <label for="precio" class="form-label">Precio del producto</label>
+                                    <input type="number" required class="form-control" id="precio"
+                                        aria-describedby="nameHelp" name="precio"
+                                        value="{{ $venta->precio_venta }}" disabled="disabled">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="iva" class="form-label">IVA del producto</label>
+                                    <input type="number" required class="form-control" id="iva"
+                                        aria-describedby="nameHelp" name="iva"
+                                        value="{{ $venta->iva_venta }}" disabled="disabled">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="total" class="form-label">Total venta del producto</label>
+                                    <input type="number" required class="form-control" id="total"
+                                        aria-describedby="nameHelp" name="total"
+                                        value="{{ $venta->total_venta }}" disabled="disabled">
+                                </div>
+                                <div class="mb-3">
+                                    <?php
+                                    $estado = $venta->estado_venta;
+                                    $che_estado = $estado == '1' ? 'checked' : '';
+                                    ?>
                                     <label for="estado" class="form-label">Activo </label>
-                                    <input type="checkbox"  class="form-control" id="estado" name="estado"
-                                        value="{{ $cliente->estado_cliente }}" {{ $che_estado }}>
+                                    <input type="checkbox" class="form-control" id="estado" name="estado"
+                                        {{ $che_estado }}>
                                 </div>
-                                <?php
-                                $estado = $cliente->estado_cliente;
-                                $che_estado = $estado == '1' ? 'checked' : '';
-                                ?>
                                 <div class="mt-3 text-center">
                                     <button type="submit" class="btn btn-primary">Actualizar</button>
-                                    <a href="{{ route('clientes.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('ventas.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </form>
                         </div>

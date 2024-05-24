@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class familiar extends Model
 {
     use HasFactory;
+    protected $table = 'familiares';
+    public $timestamps = true;
 }
